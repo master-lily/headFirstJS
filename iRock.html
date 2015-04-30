@@ -4,24 +4,52 @@
     <meta charset="UTF-8">
     <title>iRock - The Virtual Pet Rock</title>
 
+    <script type="text/javascript" src="cookie.js"></script>
     <script type="text/javascript">
+        var userName;
+        function greetUser(){
+            if(navigator.cookieEnabled)
+            //Если куки поддерживаются, прочитайте имя пользователя из куки iRock
+            userName = readCookie("iRock_username");
+            if (userName)
+            alert("Hello " + userName + ", I missed you!");
+            else
+            alert("Hello, I am your pet rock!");
+        }
 
         function touchRock() {
-            var userName = prompt("Как вас зовут?", "Введите ваше имя.");
+
             if (userName) {
-                alert("Рад вас видеть " + userName + ".");
-                document.getElementById("rockImg").src = "img/rock_happy.png";
+                alert("I like the attention, " + userName + " thank you!")
+            }
+            else{
+                userName = prompt("What is your name?", "Enter your name here.");
+                if (userName)
+                    alert("It is good to meet you " + userName + ".");
+                if(navigator.cookieEnabled)
+                //Если куки поддерживаются, запишите имя куки с именем пользователя.
+                writeCookie("iRock_username", userName, 5*365);
+                else
+                alert("Sorry. Cookies are not supported /enabled in your browser. I won't remember your later.");
+                //Дайте пользователю знать, что отсутствие куки ограничит функциональность iRock.
 
-        }
-            setTimeout("document.getElementById('rockImg').src='img/rock.png';", 300000);
+            }
+            document.getElementById("rockImg").src = "img/rock_happy.png";
+            setTimeout("document.getElementById('rockImg').src='img/rock.png';", 5*60*1000);
         }
 
+        function resizeRock(){
+            document.getElementByID('rockImg').style.height = (document.body.clientHeight - 100)*0.9
+        }
+        //Метод resiseRock() вызывается при первой загрузке страницы, задавая начальные размеры нашего изображения (в load).
+        //Onresize: метод resizeRock() вызывается еще и при любом изменении окна браузера.
     </script>
 
 </head>
-<body onload="alert('Hello, I am your pet rock');">
+<body onload = "resizeRock(); greetUser();" onresize = "resizeRock();">
 <div style="margin-top:100px; text-align: center">
-    <img id="rockImg" src="img/rock.png" alt="iRock" style="cursor:pointer" onclick="touchRock();"/>)
+    <img id="rockImg" src="img/rock.png" alt="iRock" style="cursor:pointer" onclick="touchRock();"/>
+
 </div>
 </body>
 </html>
