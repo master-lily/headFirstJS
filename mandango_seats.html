@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Mandango - The Macho Movie Ticket Finder</title>
+    <script type="text/javascript">
+        /*  var seats = [false, true, false, true, true, true, false, true, false];
+         for (i=0; i<seats.length; i++) {
+         if(seats[i]==true)
+         alert("Seat " + i +" is available");
+         else
+         alert("Seat " + i + " is not available");
+         }*/
+
+        function initSeats(){
+            //задаем вид кресел
+            for(var i=0; i<seats.length; i++){
+                if(seats[i]){
+                    //вид доступных кресел
+                    document.getElementByID("seat " + i).src = "img/seat_avail.png";
+                    document.getElementById("seat" + i).alt = "Available seat";
+                    //Если переменная seat имеет значение true, помечаем кресло как доступное.
+                }
+                else {
+                    //вид занятых кресел
+                    document.getElementByID("seat " +i).src = "img/seat_unavail.png";
+                    document.getElementByID("seat " + i).alt  = "Unavailable seat";
+                    /* ("seat " + i) - в качестве параметра ID выступает счетчик цикла
+                     Если переменная seat имеет значение false, помечаем кресло как занятое */
+                }
+
+            }
+        }
+        //В body атрибуты src и alt редактируются динамически для каждого кресла
+
+        /*    function findSeats() {
+         //поиск свободного места среди всех возможных
+         for (var i = 0; i < seats.length; i++) {
+         //проверка доступности рассматриваемого в данный момент кресла
+         if (seats[i]) {
+         //выделяем кресло и обновляем его. selSeat - переменная, хранящая инфо о выбранном кресле.
+         selSeat = i;
+         document.getElementByID("seat" + i).src = "img/seat_select.png";
+         document.getElementByID("seat" + i).alt = "Your seat";
+
+         //Пользователю предлагается принять предложенный вариант
+         var accept = confirm("Seat " + (i + 1) + "is available. Accept?");
+         if (accept) {
+         //Кресло забронировано, работа цикла завершается.
+         break;
+         }
+         else {
+         //Пользователь отказался, ищем дальше
+         selSeat = -1;
+         document.getElementByID("seat " + i).src = "img/seat_avail.png";
+         document.getElementByID("seat " + i).alt = "Available seat";
+         }
+         }
+         }
+
+         }
+         */
+
+
+        function findSeats() {
+            for (var i = 0; i < seats.length; i++){
+                /*Проверяем свободно ли место и два следующие за ним. Последовательность из трех кресел проверяется при помощи
+                 вложенных операторов if*/
+                if(seats[i]){
+                    if(seats[i+1]){
+                        if(seats[i+2]){
+                            //Выделяем кресла и обновляем их вид. При обнаружении трех мест подряд выделяем первое из них.
+                            selSeat=i;
+
+                        }
+                    }
+                }
+            }
+        }
+
+    </script>
+</head>
+<body onload="initSeats()" >
+<div style="margin-top:75px; text-align:center">
+    <img id="seat0"  src="" alt=""/>
+    <img id="seat1" src="" alt=""/>
+    <img id="seat2" src="" alt=""/>
+    <img id="seat3" src="" alt=""/>
+    <img id="seat4" src="" alt=""/>
+    <img id="seat5" src="" alt=""/>
+    <img id="seat6" src="" alt=""/>
+    <img id="seat7" src="" alt=""/>
+    <img id="seat8" src="" alt=""/></br>
+
+
+</div>
+</body>
+</html>

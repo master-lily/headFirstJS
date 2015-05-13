@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Adventure game</title>
+    <script type="text/javascript">
+        //Выбираем в качестве текущей сцену 0
+        var curScene=0;
+        function changeScene(option) {
+            //Удаляем описание сцены.
+            var message ="";
+            if (curScene==0){
+                curScene=1;
+                message="Your journey begins at a fork in the road";
+            }
+            else
+            if (curScene==3) {
+                if (option == 1) {
+                    curScene = 6;
+                    message = "Sorry, a troll lives on the other side of the bridge and you " + "just became his lunch.";
+                }
+                else {
+                    curScene = 7;
+
+
+                    message = "Your stare is interrupted by the arrival of a huge troll";
+                }
+            }
+            else
+            if(curScene = 4) {
+                if (option == 1) {
+                    curScene = 8;
+                    message = "Sorry, you became a part of the witch's stew.";
+                }
+                else {
+                    curScene = 5;
+                }
+            }
+            //.........
+            document.getElementsByID("sceneimg").src="scene"+curScene+".png";
+            if (message !="")
+                alert(message);
+
+        }
+
+        /*Метод changeScene ():
+         1. Присваивает переменной curScene() номер новой страницы.
+         2. Присваивает переменной message новое описание.
+         3. Меняет изображение на основе значения переменной curScene и выводит новое описание. */
+
+    </script>
+</head>
+<body>
+<div style="margin-top:100px; text-align:center">
+    <img id="sceneimg" src="img/scene1.png" alt="Stick Figure Adventure"/> <br />
+    Please choose:
+    <input type="button" id="dessision1" value="1" onclick="changeScene1" />
+    <input type="button" id="dessision2" value="2" onclick="changeScene2" />
+
+</div>
+
+</body>
+</html>
