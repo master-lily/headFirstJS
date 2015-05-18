@@ -17,13 +17,13 @@
             for(var i=0; i<seats.length; i++){
                 if(seats[i]){
                     //вид доступных кресел
-                    document.getElementByID("seat " + i).src = "img/seat_avail.png";
+                    document.getElementByID("seat " + i).src = "mandangoSeats_img/seat_avail.png";
                     document.getElementById("seat" + i).alt = "Available seat";
                     //Если переменная seat имеет значение true, помечаем кресло как доступное.
                 }
                 else {
                     //вид занятых кресел
-                    document.getElementByID("seat " +i).src = "img/seat_unavail.png";
+                    document.getElementByID("seat " +i).src = "mandangoSeats_img/seat_unavail.png";
                     document.getElementByID("seat " + i).alt  = "Unavailable seat";
                     /* ("seat " + i) - в качестве параметра ID выступает счетчик цикла
                      Если переменная seat имеет значение false, помечаем кресло как занятое */
@@ -40,7 +40,7 @@
          if (seats[i]) {
          //выделяем кресло и обновляем его. selSeat - переменная, хранящая инфо о выбранном кресле.
          selSeat = i;
-         document.getElementByID("seat" + i).src = "img/seat_select.png";
+         document.getElementByID("seat" + i).src = "mandangoSeats_img/seat_select.png";
          document.getElementByID("seat" + i).alt = "Your seat";
 
          //Пользователю предлагается принять предложенный вариант
@@ -52,7 +52,7 @@
          else {
          //Пользователь отказался, ищем дальше
          selSeat = -1;
-         document.getElementByID("seat " + i).src = "img/seat_avail.png";
+         document.getElementByID("seat " + i).src = "mandangoSeats_img/seat_avail.png";
          document.getElementByID("seat " + i).alt = "Available seat";
          }
          }
@@ -60,6 +60,50 @@
 
          }
          */
+
+
+        function findSeats() {
+            for (var i = 0; i < seats.length; i++){
+                /*Проверяем свободно ли место и два следующие за ним. Последовательность из трех кресел проверяется при помощи
+                 вложенных операторов if*/
+                /*if(seats[i] && seats[i+1] && seats[i+2]{   -изящно вместо трех вложенных if*/
+                if(seats[i]){
+                    if(seats[i+1]){
+                        if(seats[i+2]){
+                            //Выделяем кресла и обновляем их вид. При обнаружении трех мест подряд выделяем первое из них.
+                            selSeat=i;
+                            //Меняем изображения всех трех кресел на "занятые", чтобы пользователь видел, какие места остались свободны.
+                            document.getElementByID("seat" + i).src = "mandangoSeats_img/seat_select.png";
+                            document.getElementByID("seat" + i).alt = "Your seat";
+                            document.getElementByID("seat" + i).src = "mandangoSeats_img/seat_select.png";
+                            document.getElementByID("seat" + i).alt = "Your seat";
+                            document.getElementByID("seat" + i).src = "mandangoSeats_img/seat_select.png";
+                            document.getElementByID("seat" + i).alt = "Your seat";
+                            //Пользователю предлагается принять предложенный вариант
+                            var accept = confirm("Seat " + (i + 1) + "is available. Accept?");
+                            if (accept) {
+                                //Кресло забронировано, работа цикла завершается.
+                                break;
+                            }
+                            else {
+                                //Пользователь отказался, ищем дальше
+                                selSeat = -1;
+                                //Если пользователь не бронирует места, возвращаем им изображение "незанятые".
+                                document.getElementByID("seat " + i).src = "mandangoSeats_img/seat_avail.png";
+                                document.getElementByID("seat " + i).alt = "Available seat";
+                                document.getElementByID("seat " + i).src = "mandangoSeats_img/seat_avail.png";
+                                document.getElementByID("seat " + i).alt = "Available seat";
+                                document.getElementByID("seat " + i).src = "mandangoSeats_img/seat_avail.png";
+                                document.getElementByID("seat " + i).alt = "Available seat";
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
+
+
 
 
         function findSeats() {
